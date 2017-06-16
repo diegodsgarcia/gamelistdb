@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col m4">
+      <div class="card">
+        <figure>
+          <img [src]="thumbnail">
+        </figure>
+      </div>
+    </div>
+    <div class="col m8">
+      <div class="card">
+        <div class="card-content">
+          <h1>{{ game?.title }}</h1>
+          <p *ngIf="game?.platform"><span>Platform: </span>{{ game?.platform }}</p>
+          <p *ngIf="game?.releaseDate"><span>Release: </span>{{ game?.releaseDate | date:"dd/MM/yyyy" }}</p>
+          <p *ngIf="game?.publisher"><span>Publisher </span>{{ game?.publisher }}</p>
+          <p *ngIf="game?.rating"><span>Rating: </span>{{ game?.rating }}</p>
+          <p *ngIf="game?.overview"><span>Description: </span>{{ game?.overview }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col m4" *ngFor="let image of game?.images">
+      <div class="card">
+        <figure>
+          <img [src]="game?.urlImage + image.url">
+        </figure>
+      </div>
+
+    </div>
+  </div>
+</div>

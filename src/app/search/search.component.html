@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="input-field">
+    <input id="first_name" type="text" class="validate" (keyup)="keyup.next($event)">
+    <label for="first_name">Digite o nome de algum jogo</label>
+  </div>
+
+  <div class="row">
+    <div *ngFor="let game of games" class="col m4">
+      <div class="card">
+        <div class="card-image">
+          <img *ngIf="game?.images[0]" [src]="game?.urlImage + game?.images[0].url">
+        </div>
+        <div class="card-content">
+          <h1>{{ game.title }}</h1>
+          <p *ngIf="game.platform"><span>Platform:</span> {{ game.platform }}</p>
+          <p *ngIf="game.releaseDate != 'Invalid Date'"><span>Realese:</span> {{ game.releaseDate | date:"dd/MM/yyyy" }}</p>
+        </div>
+        <div class="card-action">
+          <a [routerLink]="['description', game.id]">Saiba +</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
