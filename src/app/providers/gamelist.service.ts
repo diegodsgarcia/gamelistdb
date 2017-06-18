@@ -6,11 +6,11 @@ import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class GamelistService {
-  game : GameModel
-  games: GameModel[]
+  game : GameModel;
+  games: GameModel[];
 
   constructor() {
-    this.game = new GameModel()
+    this.game = new GameModel();
   }
 
   searchGame(nameValue: string) {
@@ -24,6 +24,7 @@ export class GamelistService {
       function getGamesImages(games) {
         return new Promise((resolve, reject) => {
           for(let i = 0; i < games.length; i++) {
+            console.log(i);
             thegamesdb.getGameArt({ id: games[i].id }).then((gameArt) => {
               games[i].images = gameArt;
               games[i].urlImage = 'http://thegamesdb.net/banners/';
@@ -31,6 +32,8 @@ export class GamelistService {
               if(games.length == (i + 1)) {
                 resolve(games);
               }
+            }).catch((error) => {
+              resolve(games);
             });
           }
 
@@ -47,8 +50,8 @@ export class GamelistService {
               }
             }
             game.images[0] = image;
-
             if(games.length == (index + 1)) {
+              console.log(games);
               resolve(games);
             }
           });

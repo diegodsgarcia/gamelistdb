@@ -11,18 +11,19 @@ import { GameModel } from './../models/game';
   styleUrls: ['./search.component.sass']
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  games: GameModel[];
+  games: any;
   keyup: Subject<string>;
   isLoading: boolean;
 
   constructor(
     private gamelistService: GamelistService,
     private navigationService: NavigationService) {
-    this.keyup = new Subject<string>();
+      this.keyup = new Subject<string>();
   }
 
   ngOnInit() {
     this.navigationService.backButton.emit(false);
+    this.games = this.gamelistService.games;
     this.isLoading = false;
     this.searchInput()
   }
@@ -41,10 +42,10 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   searchGame(value) {
     this.gamelistService.searchGame(value).then((games : GameModel[]) => {
-      this.games = games;
+      this.gamelistService.games = games;
+      this.games = this.gamelistService.games;
       this.isLoading = false;
     }).catch((error) => {
-      this.games = null;
       this.isLoading = false;
     })
   }
