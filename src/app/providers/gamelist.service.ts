@@ -31,7 +31,7 @@ export class GamelistService {
               if(games.length == (i + 1)) {
                 resolve(games);
               }
-            })
+            });
           }
 
         });

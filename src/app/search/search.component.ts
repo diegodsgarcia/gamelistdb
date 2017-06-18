@@ -13,6 +13,7 @@ import { GameModel } from './../models/game';
 export class SearchComponent implements OnInit, OnDestroy {
   games: GameModel[];
   keyup: Subject<string>;
+  isLoading: boolean;
 
   constructor(
     private gamelistService: GamelistService,
@@ -22,6 +23,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.navigationService.backButton.emit(false);
+    this.isLoading = false;
     this.searchInput()
   }
 
@@ -31,6 +33,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       .debounceTime(500)
       .distinctUntilChanged()
       .subscribe((value) => {
+        this.isLoading = true;
         this.searchGame(value);
       })
 
@@ -39,8 +42,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   searchGame(value) {
     this.gamelistService.searchGame(value).then((games : GameModel[]) => {
       this.games = games;
+      this.isLoading = false;
     }).catch((error) => {
       this.games = null;
+      this.isLoading = false;
     })
   }
 
